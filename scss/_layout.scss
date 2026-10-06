@@ -1,0 +1,103 @@
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+
+    @media (min-width: $bp-lg) {
+    grid-template-columns: 5fr 7fr;
+
+        .workspace-inner { 
+            position: sticky; 
+            top: 16px; 
+        }
+    }
+}
+
+.workspace { 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+.site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    &-icon {
+        width: 42px; height: 42px;
+        border-radius: 12px;
+        background: $accent-soft;
+        border: 1px solid $accent;
+        color: $accent;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    &-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+
+    &-sub { margin: 0; 
+        font-size: 12px; 
+        color: $muted; 
+    }
+}
+
+
+.stats-pills { 
+    display: flex; 
+    gap: 8px; 
+    flex-wrap: wrap; 
+}
+
+.pill {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: $accent-soft;
+    border: 1px solid $accent;
+    color: $muted;
+    font-variant-numeric: tabular-nums;
+
+    &-accent {
+        background: $accent-soft;
+        border-color: $accent;
+        color: $text;
+        font-weight: 600;
+    }
+}
+
+.site-footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid $border;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 11px;
+    color: $muted;
+
+    code {
+        background: $card-2;
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+    }
+}

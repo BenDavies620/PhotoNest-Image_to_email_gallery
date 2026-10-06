@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: $bg;
+    color: $text;
+    font-family: $font;
+}
+
+body {
+    background: radial-gradient(900px 500px at 85% -10%, rgba(140, 192, 58, .1), transparent 60%), $bg;
+    min-height: 100vh;
+}
+
+.page {
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+.accent {
+    color: $accent;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}

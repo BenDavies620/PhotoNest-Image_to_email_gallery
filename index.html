@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoNest - Image to Email Gallery</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%238cc03a'/%3E%3Ccircle cx='9' cy='9' r='2.2' fill='%23161618'/%3E%3Cpath d='M4 18l6-6 4 4 3-3 3 3v3H4z' fill='%23161618'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/application.css">
+</head>
+<body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <div class="page">
+        <header class="site-header">
+            <div class="brand">
+                <div class="brand-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="9" cy="9" r="2"/>
+                        <path d="M21 15l-5-5L5 21"/>
+                    </svg>
+                </div>
+                <h1 class="brand-title">PhotoNest<span class="accent">.</span></h1>
+                <p class="brand-sub">Image &rarr; Email assignment gallery &middot; JS Array project</p>
+            </div>
+            <div class="stats-pills">
+                <span class="pill" id="stat-images">0 Images</span>
+                <span class="pill" id="stat-emails">0 Emails</span>
+                <span class="pill" id="stat-links">0 Links</span>
+            </div>
+        </header>
+
+        <main class="grid">
+            <aside class="workspace">
+                <section class="card">
+                    <div class="card-head">
+                        <span class="eyebrow">Current image</span>
+                        <span class="seed-label">piscum.photos</span>
+                    </div>
+
+                    <div class="image-frame">
+                        <img id="current-image" src="" alt="Randomly loaded image from Piscum" loading="eager">
+                        <div class="image-loader">Loading&hellip;</div>
+                    </div>
+
+                    <button type="button" id="btn-new-image" class="btn btn-secondary">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M23 4v6h-6"/>
+                            <path d="M1 20v-6h6"/>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                        </svg>
+                        New image
+                    </button>
+                </section>
+
+                <section class="card">
+                    <div class="card-head">
+                        <span class="eyebrow">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="M22 7l-10 6L2 7"/>
+                            </svg>
+                            Assign to email
+                        </span>
+                    </div>
+
+                    <form id="assign-form" novalidate>
+                        <label for="email-input" class="field-label">Email address</label>
+                        <input type="email" id="email-input" name="email" placeholder="you@example.com" required>
+                        <p class="feedback" id="email-feedback" aria-live="polite"></p>
+                        <button type="submit" id="btn-assign" class="btn btn-primary">Assign image to email</button>
+                    </form>
+
+                    <p class="rule-note">One image can be linked to many emails, but only once per email &mdash;
+                    duplicate assignments are blocked automatically.</p>
+                </section>
+
+                <section class="card card-flat">
+                    <button type="button" id="btn-clear" class="btn btn-ghost">Clear all assignments</button>
+                </section>
+            </aside>
+
+            <section class="collection">
+                <div class="collection-head">
+                    <h2>Collection by email</h2>
+                    <span class="collection-hint">each email shown once &middot; click a header to collapse</span>
+                </div>
+
+                <div id="empty-state" class="empty-state">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="9" cy="9" r="2"/>
+                        <path d="M21 15l-5-5L5 21"/>
+                    </svg>
+                    <p>No assignments yet.</p>
+                    <p class="empty-sub">Load an image, enter a email, and hit assign &mdash; your gallery will appear here.</p>
+                </div>
+
+                <div id="gallery"></div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p> 
+                &copy;2026 Benjamin Davies <br>
+                JavaScript Arrays Project
+            </p>
+            <a href="https://github.com/BenDavies620" target="_blank"><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a>
+        </footer>
+    </div>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
