@@ -1,0 +1,25 @@
+@media (prefers-reduced-motion: reduce) {
+    .group {
+        animation: none;
+    }
+
+    .btn,
+    .thumb,
+    .chev,
+    .toast,
+    .image-frame #current-image,
+    .photo-modal .modal-close {
+        transition: none;
+    }
+
+    .thumb:hover,
+    .btn-primary:hover,
+    .photo-modal .modal-close:hover {
+        transform: none;
+    }
+
+    .toast,
+    .toast.show {
+        transform: translateX(-50%);
+    }
+}

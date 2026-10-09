@@ -1,0 +1,59 @@
+.photo-modal {
+    width: 92vw;
+    max-width: 900px;
+    padding: 64px 16px 16px;
+    max-height: 90vh;
+    border: 1px solid $border;
+    border-radius: $radius;
+    background: $card;
+    color: $text;
+    overflow-y: auto;
+
+    &::backdrop {
+        background: rgba(0, 0, 0, .8);
+    }
+
+    #modal-image {
+        display: block;
+        width: 100%;
+        max-height: 65vh;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .modal-caption {
+        margin: 16px 0 0;
+        color: $muted;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        background: $card-2;
+        color: $text;
+        font-size: 1.8rem;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s ease, transform 0.3s ease;
+        padding: 0 0 2px;
+
+        &:hover {
+            background: $accent;
+            transform: rotate(90deg);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $accent;
+        }
+    }
+}

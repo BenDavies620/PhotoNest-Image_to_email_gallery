@@ -1,16 +1,16 @@
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
 
     @media (min-width: $bp-lg) {
-    grid-template-columns: 5fr 7fr;
-
-        .workspace-inner { 
-            position: sticky; 
-            top: 16px; 
-        }
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     }
+}
+
+.workspace,
+.collection {
+    min-width: 0;
 }
 
 .workspace { 
@@ -34,7 +34,8 @@
     gap: 12px;
 
     &-icon {
-        width: 42px; height: 42px;
+        width: 42px;
+        height: 42px;
         border-radius: 12px;
         background: $accent-soft;
         border: 1px solid $accent;
@@ -56,6 +57,22 @@
     &-sub { margin: 0; 
         font-size: 12px; 
         color: $muted; 
+    }
+
+    @media (min-width: $bp-lg) {
+        .brand-title {
+            font-size: 28px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
     }
 }
 
@@ -94,10 +111,15 @@
     font-size: 11px;
     color: $muted;
 
-    code {
-        background: $card-2;
-        padding: 1px 6px;
-        border-radius: 4px;
-        font-size: 10px;
+    .github-link {
+        display: inline-flex;
+        align-items: center;
+        color: $muted;
+        transition: color $transition;
+
+        &:hover,
+        &:focus-visible {
+            color: $accent;
+        }
     }
 }
