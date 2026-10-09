@@ -88,7 +88,7 @@ const collections = [];
 
 assignForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    const email = emailInput.value.trim();
+    const email = normaliseEmail(emailInput.value);
 
     // Check for an empty input, then check the email format.
     if (email === '') {
@@ -124,7 +124,7 @@ assignForm.addEventListener('submit', (event) => {
 
         // Find this email's collection or create one if it does not exist.
         let collection = collections.find((item) => {
-            return item.email === email;
+            return normaliseEmail(item.email) === email;
         });
 
         if (!collection) {
@@ -159,6 +159,20 @@ assignForm.addEventListener('submit', (event) => {
     }
 });
 
+function normaliseEmail(value) {
+    const email = value.trim();
+    const atPosition = email.lastIndexOf('@');
+
+    if (atPosition === -1) {
+        return email;
+    }
+
+    const firstPart = email.slice(0, atPosition + 1);
+    const domain = email.slice(atPosition + 1).toLowerCase();
+
+    return firstPart + domain;
+}
+
 //========================
 // Displaying Collections
 //========================
@@ -181,7 +195,6 @@ function renderGallery() {
     }
 
     // A Set counts each photo ID once; totalLinks counts every assignment.
-    statEmail.textContent = `${collections.length} emails`;
     const uniqueImageIds = new Set();
     let totalLinks = 0;
 
@@ -363,8 +376,9 @@ function renderGallery() {
     });
 
     // Update these counters after all collections have been counted.
-    statLinks.textContent = `${totalLinks} links`;
-    statImages.textContent = `${uniqueImageIds.size} images`;
+    statEmail.textContent = `${collections.length} ${collections.length === 1 ? 'email' : 'emails'}`;
+    statLinks.textContent = `${totalLinks} ${totalLinks === 1 ? 'link' : 'links'}`;
+    statImages.textContent = `${uniqueImageIds.size} ${uniqueImageIds.size === 1 ? 'image' : 'images'}`;
 }
 
 //=================
