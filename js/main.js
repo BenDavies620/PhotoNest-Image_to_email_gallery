@@ -86,6 +86,64 @@ const feedback = document.getElementById('email-feedback');
 // Each collection stores one email, its photos, avatar colour, and collapse state.
 const collections = [];
 
+//=====================
+//Saved Email Dropdown
+//=====================
+const savedEmailPicker = document.getElementById('saved-email-picker');
+const savedEmailSelect = document.getElementById('saved-email-select');
+
+// Match the dropdown selection to the address currently in the input.
+function syncSavedEmailSelection() {
+    const email = normaliseEmail(emailInput.value);
+
+    const existingCollection = collections.find((item) => {
+        return normaliseEmail(item.email) === email;
+    });
+
+    savedEmailSelect.value = existingCollection ? existingCollection.email : '';
+}
+
+// Rebuild the options using the current collections.
+function renderSavedEmailOptions() {
+    savedEmailSelect.textContent = '';
+
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Choose a saved email';
+    placeholder.disabled = true;
+    savedEmailSelect.appendChild(placeholder);
+
+    collections.forEach((collection) => {
+        const option = document.createElement('option');
+        option.value = collection.email;
+        option.textContent = collection.email;
+
+        savedEmailSelect.appendChild(option);
+    });
+
+    // Only show the picker when saved emails are available.
+    savedEmailPicker.hidden = collections.length === 0;
+
+    syncSavedEmailSelection();
+}
+
+// Fill the input when an existing email is selected.
+savedEmailSelect.addEventListener('change', () => {
+    if (savedEmailSelect.value === '') {
+        return;
+    }
+
+    emailInput.value = savedEmailSelect.value;
+
+    // Clear feedback left over from the previous entry.
+    feedback.textContent = '';
+    feedback.classList.remove('ok', 'err');
+    emailInput.classList.remove('valid', 'invalid');
+});
+
+// Keep the selection accurate when someone types an address manually.
+emailInput.addEventListener('input', syncSavedEmailSelection);
+
 assignForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const email = normaliseEmail(emailInput.value);
@@ -160,17 +218,7 @@ assignForm.addEventListener('submit', (event) => {
 });
 
 function normaliseEmail(value) {
-    const email = value.trim();
-    const atPosition = email.lastIndexOf('@');
-
-    if (atPosition === -1) {
-        return email;
-    }
-
-    const firstPart = email.slice(0, atPosition + 1);
-    const domain = email.slice(atPosition + 1).toLowerCase();
-
-    return firstPart + domain;
+    return value.trim().toLowerCase();
 }
 
 //========================
@@ -185,6 +233,8 @@ const statImages = document.getElementById('stat-images');
 function renderGallery() {
     // Clear the old elements before rebuilding the gallery from collections.
     gallery.textContent = '';
+
+    renderSavedEmailOptions();
 
     // Show the empty state only when there are no email collections.
     if (collections.length > 0) {
@@ -424,8 +474,27 @@ const photoModal = document.getElementById('photo-modal');
 const modalImage = document.getElementById('modal-image');
 const modalCaption = document.getElementById('modal-caption');
 const closeModalButton = document.getElementById('btn-close-modal');
+const modalLoader = document.getElementById('modal-loader');
+
+// Show the photo once the new image has loaded.
+modalImage.addEventListener('load', () => {
+    modalLoader.hidden = true;
+    modalImage.hidden = false;
+});
+
+// Keep the image hidden and explain when loading fails.
+modalImage.addEventListener('error', () => {
+    modalImage.hidden = true;
+    modalLoader.textContent = 'Unable to load this photo. Close the preview and try again.';
+    modalLoader.hidden = false;
+});
 
 function openPhotoModal(photo) {
+    // Hide the previous photo immediately and reset the loading message.
+    modalImage.hidden = true;
+    modalLoader.textContent = 'Loading photo...';
+    modalLoader.hidden = false;
+
     // Request a larger image while keeping the original photo proportions.
     const previewWidth = Math.min(1200, photo.width);
     const previewHeight = Math.round(previewWidth * photo.height / photo.width);

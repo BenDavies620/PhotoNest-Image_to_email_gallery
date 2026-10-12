@@ -14,6 +14,9 @@
         <button type="button" id="btn-close-modal" class="modal-close" aria-label="Close photo preview" autofocus>
             &times;
         </button>
+        <p id="modal-loader" class="modal-loader" role="status" hidden>
+            Loading photo...
+        </p>
         <img id="modal-image" alt="">
         <p id="modal-caption" class="modal-caption"></p>
     </dialog>
@@ -76,6 +79,14 @@
                         <label for="email-input" class="field-label">Email address</label>
                         <input type="email" id="email-input" name="email" placeholder="you@example.com" required>
                         <p class="feedback" id="email-feedback" aria-live="polite"></p>
+
+                        <div id="saved-email-picker" class="saved-email-picker" hidden>
+                            <label for="saved-email-select">Saved emails</label>
+                            <select id="saved-email-select">
+                                <option value="" disabled selected>Choose a saved email</option>
+                            </select>
+                        </div>
+                        
                         <button type="submit" id="btn-assign" class="btn btn-primary">Assign image to email</button>
                     </form>
 

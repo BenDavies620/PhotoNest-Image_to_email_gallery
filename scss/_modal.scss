@@ -13,6 +13,18 @@
         background: rgba(0, 0, 0, .8);
     }
 
+    .modal-loader {
+        margin: 0;
+        padding: 40px 16px;
+        color: $muted;
+        text-align: center;
+    }
+
+    #modal-image[hidden],
+    #modal-loader[hidden] {
+        display: none;
+    }
+
     #modal-image {
         display: block;
         width: 100%;
